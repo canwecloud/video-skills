@@ -1,47 +1,32 @@
 # video-skills
 
-Claude skills for producing regional-language Indian tech YouTube content, end to end:
-**topic → script → ElevenLabs voiceover → edit → upload kit.**
+Claude skills that turn a tech topic into a **finished, 3D-animated Marathi or Hindi Short**:
+**research → viral hook script → female AI voiceover → Remotion + three.js render → upload kit.**
 
-## Skills
-
-| Skill | Audience | What it does |
-|---|---|---|
-| [`skills/marathi-tech-content`](skills/marathi-tech-content/SKILL.md) | Marathi (Maharashtra) | Marathi tech scripts (ElevenLabs-ready) + editing workflow tuned for the underserved, tutorial-heavy Marathi market |
-| [`skills/hindi-tech-content`](skills/hindi-tech-content/SKILL.md) | Hindi (pan-India) | Hindi/Hinglish tech scripts + the faster, meme-inflected editing grammar of the competitive Hindi market |
-
-Each skill has two phases:
-
-1. **Script** — give Claude a tech topic; it researches current facts/prices and returns a
-   segmented, TTS-ready Devanagari script (paste segments into ElevenLabs
-   `eleven_multilingual_v2`) plus a production script with per-segment visual notes.
-2. **Edit** — give Claude your voiceover; it builds an Edit Decision List from the real audio
-   timings, plans b-roll/overlays/subtitles, assembles the video with VideoDB
-   (`upload_media` → `generate_transcript` → `render_timeline` → `add_subtitles`), cuts
-   Shorts, and delivers titles/thumbnail/description/tags.
+| Skill | What it does |
+|---|---|
+| [`marathi-tech-content`](skills/marathi-tech-content/SKILL.md) | Marathi research, viral-hook scripts (12 formulas), Poorvi voice, scene plan, render |
+| [`hindi-tech-content`](skills/hindi-tech-content/SKILL.md) | Hindi/Hinglish, same pipeline tuned for the faster Hindi feed, Ritika voice |
+| [`video-render-engine`](skills/video-render-engine/SKILL.md) | Remotion + React Three Fiber renderer: 14 animated 3D models, 7 scene types, gradient themes, 18 Devanagari/Latin fonts, karaoke captions, music ducking, SFX; plus asset tools (3D emoji, Iconify, Unsplash, background removal, Picsart, CC-BY music, Google Trends, autocomplete, Instagram hashtags) |
 
 ## Install
 
-Copy a skill folder into your skills directory:
-
 ```bash
-# personal
-cp -r skills/marathi-tech-content ~/.claude/skills/
-cp -r skills/hindi-tech-content ~/.claude/skills/
-
-# or per-project
-cp -r skills/* <your-project>/.claude/skills/
+cp -r skills/* ~/.claude/skills/
+bash ~/.claude/skills/video-render-engine/scripts/setup.sh   # fonts, Remotion deps, rembg model
 ```
 
-Then invoke with `/marathi-tech-content` or `/hindi-tech-content`, or just ask
-("Marathi script on <topic>") — the skills trigger on topic + language.
+Requires Node 18+, Python 3.10+ and ffmpeg. Optional environment variables:
+`UNSPLASH_ACCESS_KEY`, `PICSART_API_KEY`, `IG_USER_ID` + `IG_ACCESS_TOKEN`.
 
-## Layout
+Then ask: *"Marathi short on <topic>"* or *"/hindi-tech-content <topic>"*.
 
-```
-skills/<name>/
-├── SKILL.md                      # workflow the skill runs
-├── references/script-guide.md    # language register, code-mixing, structure, TTS settings
-├── references/editing-guide.md   # EDL method, overlay/subtitle/sound rules, VideoDB steps, QC
-└── assets/script-template.md     # exact output format for scripts
-```
+## Example
+
+`productions/8xdl-marathi/short-3d/` holds a complete spec, assets and render for the 8XDL app.
+
+## Licenses
+
+Remotion is free for individuals and companies with ≤ 3 employees; larger teams need a
+[company license](https://www.remotion.pro). Music is Kevin MacLeod, CC BY 4.0 (credit
+required). Fonts are SIL OFL. Fluent emoji, three.js and R3F are MIT.

@@ -1,0 +1,30 @@
+{
+  "license": "Kevin MacLeod (incompetech.com) — CC BY 4.0. Free for monetized video; the credit line is REQUIRED in the description.",
+  "tracks": [
+    {"title": "Voxel Revolution", "moods": ["tech", "upbeat", "energetic", "review"]},
+    {"title": "Aitech", "moods": ["tech", "futuristic", "explainer"]},
+    {"title": "Digital Lemonade", "moods": ["tech", "upbeat", "chill"]},
+    {"title": "Electrodoodle", "moods": ["tech", "playful", "upbeat"]},
+    {"title": "Raving Energy", "moods": ["energetic", "hype", "shorts"]},
+    {"title": "Bit Shift", "moods": ["tech", "retro", "gaming"]},
+    {"title": "Itty Bitty 8 Bit", "moods": ["gaming", "retro", "playful"]},
+    {"title": "Hyperfun", "moods": ["upbeat", "playful", "shorts"]},
+    {"title": "Funkorama", "moods": ["upbeat", "funky", "review"]},
+    {"title": "Werq", "moods": ["energetic", "hype", "review"]},
+    {"title": "Rollin at 5", "moods": ["chill", "tutorial", "groovy"]},
+    {"title": "Chill Wave", "moods": ["chill", "tutorial", "calm"]},
+    {"title": "Clear Air", "moods": ["calm", "tutorial", "explainer"]},
+    {"title": "Inspired", "moods": ["inspiring", "explainer", "calm"]},
+    {"title": "Easy Lemon", "moods": ["calm", "tutorial", "light"]},
+    {"title": "Getting it Done", "moods": ["upbeat", "productive", "tutorial"]},
+    {"title": "Investigations", "moods": ["mystery", "suspense", "explainer"]},
+    {"title": "Sneaky Snitch", "moods": ["playful", "comedy", "mystery"]},
+    {"title": "Mesmerize", "moods": ["futuristic", "calm", "explainer"]},
+    {"title": "Carefree", "moods": ["light", "happy", "chill"]},
+    {"title": "Wallpaper", "moods": ["light", "background", "calm"]},
+    {"title": "Life of Riley", "moods": ["happy", "light", "playful"]},
+    {"title": "Pixel Peeker Polka - faster", "moods": ["comedy", "playful", "energetic"]},
+    {"title": "Monkeys Spinning Monkeys", "moods": ["comedy", "playful"]},
+    {"title": "Local Forecast - Elevator", "moods": ["chill", "background", "light"]}
+  ]
+}

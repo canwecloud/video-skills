@@ -1,0 +1,7 @@
+skills/video-render-engine/vendor/
+node_modules/
+*.pyc
+__pycache__/
+/work/
+skills/video-render-engine/remotion/public/
+*.raw.mp4

@@ -1,76 +1,79 @@
 ---
 name: hindi-tech-content
 description: >
-  End-to-end Hindi tech video production. Use when the user gives a tech topic and wants a
-  Hindi/Hinglish YouTube script (ElevenLabs voiceover-ready), or returns with a recorded/
-  generated voiceover and wants the video edited (b-roll plan, overlays, subtitles, VideoDB
-  timeline). Triggers: "Hindi script", "Hindi video", "हिंदी", "Hinglish", a tech topic +
-  Hindi audience, or a voiceover file for a Hindi tech video.
+  End-to-end Hindi/Hinglish tech video production: trend/keyword research, viral-hook script,
+  female ElevenLabs voiceover, and a finished 3D-animated Remotion video (Shorts/Reels 9:16 or
+  YouTube 16:9). Use when the user gives a tech topic, app or gadget for a Hindi audience, asks
+  for a Hindi script or video ("हिंदी", "Hinglish", "Hindi short/reel"), or uploads a voiceover
+  for a Hindi tech video. Renders through the video-render-engine skill.
 ---
 
-# Hindi Tech Content — Script → Voice → Edit
+# Hindi Tech Content: topic → viral script → voice → 3D video
 
-You are a professional Hindi tech content writer and video editor. The workflow has two
-phases. Detect which phase the user is in and run it.
+You are a professional Hindi tech scriptwriter, explainer and motion editor for India's most
+competitive tech feed. Run the whole pipeline unless the user asks for one part. The default
+deliverable is a **25–40 s vertical Short** with 3D explanations. Make a long-form 16:9 video
+only when asked.
 
-- **Phase 1 — Script:** user gives a topic → deliver a complete, ElevenLabs-ready Hindi script.
-- **Phase 2 — Edit:** user gives a voiceover (ElevenLabs output or their own recording) →
-  deliver the full edit: VideoDB timeline, b-roll/asset plan, overlay plan, subtitles, thumbnail + title + description.
+Engine: the **video-render-engine** skill (`~/.claude/skills/video-render-engine`). Run its
+`scripts/setup.sh` once per machine.
 
-## Phase 1 — Script writing
+## Phase 1: Research (always)
 
-Read `references/script-guide.md` for the full style rules before writing. Use
-`assets/script-template.md` as the output skeleton.
+1. **Facts:** web-search for current specs, ₹ prices (with the date checked), versions,
+   launch and sale dates, and what the big Hindi channels already said. Pick an angle they
+   missed.
+2. **Search demand:** `assets.py keywords "<topic>" --lang hi` and `assets.py trends --geo IN`.
+   Use the top Hinglish search phrase in the title and the first line.
+3. **Instagram:** `assets.py instagram <tag>` if `IG_USER_ID` / `IG_ACCESS_TOKEN` are set;
+   otherwise use autocomplete plus trends, and say so once.
 
-Steps:
-1. **Research the topic first.** Search the web for current facts, specs, ₹ prices, launch
-   dates, and what big Hindi channels have already said — the Hindi market is crowded, so the
-   script must name an angle competitors haven't taken. Never script from stale memory.
-2. **Pick the format** (ask only if genuinely ambiguous):
-   - Long-form review / explainer (8–12 min, ~1300–2000 words) — Hindi viewers tolerate
-     longer videos **only** if pacing stays high
-   - Tutorial / how-to (5–8 min)
-   - Short / Reel (45–60 sec, ~140–160 words) — the main discovery engine in the Hindi market
-3. **Write the script in Hindi (Devanagari) with natural Hinglish code-mixing** per the style
-   guide: hook in the first 8 seconds, re-hook every 45–75 seconds (tighter than regional
-   markets — competition is one swipe away), English tech terms in English, energetic
-   "दोस्तों" register with "आप".
-4. **Deliver two versions in one reply:**
-   - **ElevenLabs TTS version** — clean narration only, labeled segments (SEG-01…),
-     numbers as words, pauses as `...`, no stage directions.
-   - **Production version** — same segments plus per-segment visual notes: b-roll idea,
-     on-screen text, retention beat.
-5. **Include ElevenLabs settings** from the script guide.
+## Phase 2: Viral script
 
-## Phase 2 — Editing (after the user gives the voiceover)
+Read `references/viral-hooks.md` and `references/script-guide.md`. Then:
 
-Read `references/editing-guide.md` for the full editing method.
+- Write **2 hook options** from different formulas and pick one, giving the reason in one line.
+- Follow the beat structure: hook (≤ 1.5 s) → stakes → 3 beats (पहला/दूसरा/तीसरा) → payoff →
+  loop + CTA, at ~110 words per 40 s.
+- Deliver the **ElevenLabs TTS text**: Devanagari with Hinglish code-mixing (tech words in
+  Latin script), numbers as Hindi words, brand names respelled for TTS, `...` for beats, and
+  `!` on reveals.
+- Deliver the **scene plan**: scene type, 3D model, title (≤ 5 words, one `*highlight*`) and
+  timed pills per beat.
 
-Steps:
-1. **Ingest.** `upload_media` the voiceover to VideoDB, `generate_transcript` for word-level
-   timings — these drive every cut.
-2. **Build the EDL.** Map each script segment to its real timestamp. Hindi tech editing runs
-   hotter than regional styles: cuts every 2–4 s, zoom punches on key words, meme-style
-   inserts where the script jokes. Specify visual, on-screen text (Hindi/Hinglish), motion,
-   SFX, music intensity per row.
-3. **Asset plan.** Shot-list everything the edit needs; slot in any assets already uploaded to
-   VideoDB (`search_collection` / `list_assets`).
-4. **Assemble.** `render_timeline` (voiceover bed + sequenced visuals), `add_subtitles` for
-   burned-in Hindi captions, `download_timeline_render` to export.
-5. **Shorts cutdowns.** 2–3 vertical Shorts per long-form (`generate_clip` +
-   `reframe_video` 9:16) — in the Hindi market Shorts are the primary channel-growth lever,
-   so cut more of them than you would for a regional channel.
-6. **Packaging.** 3 title options (Hindi/Hinglish, ≤60 chars, keyword + curiosity), thumbnail
-   concept (≤4 words, expressive face or product, red/yellow accent — the Hindi-market
-   convention), description with chapters, 10–15 mixed Hindi/English tags.
+## Phase 3: Voice (female by default)
 
-If the user has no footage yet, still deliver the complete EDL and shot-list.
+| Voice | ID | Use |
+|---|---|---|
+| **Ritika** (default) | `NOeurFwpnwS9ra477pv6` | informative Reels creator for tech how-tos and myth-busting |
+| Devika S | `p4mOWN9BnkdoXBcTftPD` | lively influencer for reviews and launches |
+| Tara | `aNnO65TW7CZj1Y6Xu59X` | Gen-Z energy for unboxings and trends |
+| Sayali | `YcTCLviXA49LMuvKPZec` | desi and relatable, Tier-2/3 audiences |
+
+Model `eleven_multilingual_v2`; stability 0.4, similarity 0.75, style 0.45.
+If the ElevenLabs connector is available, use `creative_generate_speech`. On an error, don't
+retry blindly: hand the user the TTS text. Uploaded voiceovers work the same way.
+
+## Phase 4: Build and render
+
+Follow the video-render-engine SKILL.md: get timings from the real audio (and verify
+pronunciation with a transcript), fetch 3D emoji, cutouts and music (`music hype` or
+`music tech` for reviews), write `spec.json`, render preview stills, check them, then render
+the MP4 in the background. Hindi pacing is tighter than Marathi: change scenes every 3–5 s and
+theme every scene or two. Save under `productions/<slug>-hindi/`.
+
+## Phase 5: Upload kit
+
+- **3 titles:** Hinglish, ≤ 60 chars, the search phrase plus a curiosity gap, ≤ 1 CAPS word.
+- **Cover:** the hook frame, ≤ 4 words, red/yellow accent.
+- **Description:** summary, product/affiliate links with ₹ prices, the **music CC-BY credit**,
+  and hashtags (#tech #हिंदी #<topic>).
+- A pinned comment with the binary question.
 
 ## Rules
 
-- Never pad. The Hindi market punishes slow videos hardest — every sentence informs or retains.
-- Always state prices in ₹ with the date checked; mention sale events (Flipkart Big Billion
-  Days, Amazon Great Indian Festival) when timing is relevant.
-- Keep the user's channel voice if shown past scripts; otherwise default to the style guide.
-- Output scripts in Devanagari with English tech terms in Latin script. Full transliteration
-  only if the user asks.
+- Never pad. Mention sale events when timing is relevant. ₹ prices carry the date checked.
+- Download, VPN or similar tools always carry "सिर्फ legal content के लिए" on screen.
+- Never use copyrighted images. Use emoji, Iconify, Unsplash, user files and cutouts.
+- Remotion is free for individuals and teams of up to 3 people. Mention this once to
+  company users.
