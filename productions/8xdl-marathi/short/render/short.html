@@ -1,0 +1,141 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Mukta;src:url(file:///root/.fonts/Mukta-ExtraBold.ttf);font-weight:800}
+@font-face{font-family:Mukta;src:url(file:///root/.fonts/Mukta-Bold.ttf);font-weight:700}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#070b16;font-family:Mukta,sans-serif;color:#fff}
+#bg{position:absolute;inset:0;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(120px);opacity:.55}
+#prog{position:absolute;top:0;left:0;height:10px;background:linear-gradient(90deg,#ffd400,#ff7a00)}
+#brand{position:absolute;top:60px;left:0;right:0;text-align:center;font-weight:700;font-size:34px;letter-spacing:3px;color:#9fb3d9}
+#head{position:absolute;top:150px;left:60px;right:60px;text-align:center;font-weight:800;font-size:112px;line-height:1.15;text-shadow:0 8px 30px rgba(0,0,0,.6)}
+#sub{position:absolute;top:440px;left:60px;right:60px;text-align:center;font-weight:700;font-size:52px;color:#ffd400}
+#stage{position:absolute;top:560px;left:0;right:0;height:820px}
+.phone{position:absolute;left:280px;top:0;width:520px;height:820px;border-radius:56px;background:#0f1628;border:10px solid #2a3554;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 2px #3b4a72 inset;overflow:hidden}
+.scr{position:absolute;inset:0;padding:40px 30px}
+#cap{position:absolute;top:1430px;left:70px;right:70px;text-align:center;font-weight:800;font-size:58px;line-height:1.3}
+#cap span{background:rgba(0,0,0,.72);padding:6px 22px;border-radius:16px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.chip{display:inline-block;margin:10px 10px;padding:14px 30px;border-radius:999px;font-weight:800;font-size:44px;background:#ffd400;color:#111}
+.tile{position:absolute;width:300px;height:300px;border-radius:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:40px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.row{background:#18223b;border-radius:22px;padding:22px;margin-bottom:22px}
+.bar{height:22px;border-radius:11px;background:#26314f;overflow:hidden;display:flex;gap:3px;margin-top:14px}
+.seg{height:100%;background:linear-gradient(90deg,#00d2ff,#3a7bd5)}
+</style></head>
+<body>
+<div id="bg"></div>
+<div id="prog"></div>
+<div id="brand">8XDL · मराठी</div>
+<div id="head"></div>
+<div id="sub"></div>
+<div id="stage"></div>
+<div id="cap"></div>
+<script>
+const DUR=55.48;
+const ease=x=>1-Math.pow(1-Math.min(Math.max(x,0),1),3);
+const back=x=>{x=Math.min(Math.max(x,0),1);const c=1.70158;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+const pop=(t,t0,d=.35)=>t<t0?0:back((t-t0)/d);
+const fade=(t,t0,d=.3)=>t<t0?0:ease((t-t0)/d);
+
+const ICON={
+ dl:'<svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M6 10l6 6 6-6M4 21h16"/></svg>',
+ play:'<svg width="120" height="120" viewBox="0 0 24 24"><path d="M7 4l14 8-14 8z" fill="#fff"/></svg>',
+ file:'<svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"><path d="M3 6h7l2 2h9v11H3z"/></svg>',
+ globe:'<svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>',
+ lock:(open)=>`<svg width="300" height="340" viewBox="0 0 24 27" fill="none" stroke="#ffd400" stroke-width="2.2" stroke-linecap="round"><path d="${open?'M7 12V7a5 5 0 0 1 9.6-2':'M7 12V7a5 5 0 0 1 10 0v5'}"/><rect x="3.5" y="12" width="17" height="13" rx="3" fill="#ffd400" stroke="none"/><circle cx="12" cy="18" r="2" fill="#111" stroke="none"/></svg>`,
+ shield:'<svg width="90" height="100" viewBox="0 0 24 26"><path d="M12 1l10 4v7c0 7-5 11-10 13C7 23 2 19 2 12V5z" fill="#22c55e"/><path d="M7 13l3.5 3.5L17 10" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>',
+};
+
+const CAPS=[[0,2.4,'तुमच्या phone मध्ये download साठी एक app...'],[2.5,5.2,'video साठी दुसरं... files साठी तिसरं?'],[5.3,6.05,'थांबा!'],[6.05,8.7,'हे सगळं... आता एकाच app मध्ये!'],[8.7,12.6,'हे आहे 8XDL... एक all-in-one Android app.'],[12.6,14.9,'पहिलं... fast download manager.'],[14.9,18,'Multi-thread download मुळे speed जास्त,'],[18,21.2,'आणि net गेलं तरी pause, resume आणि recover.'],[21.2,25.5,'दुसरं... privacy browser. Built-in ad blocker,'],[25.5,27.8,'incognito mode, आणि Private DNS...'],[27.8,30.1,'म्हणजे ads बंद, आणि data सुरक्षित.'],[30.1,33,'तिसरं... media player आणि file manager.'],[33,35.5,'Subtitles, Picture-in-Picture, sleep timer...'],[35.5,38.25,'आणि files manage करा, एकाच ठिकाणी.'],[38.25,40.5,'आणि सगळ्यात भारी... Secure Private Vault!'],[40.5,44.9,'तुमचे private photos आणि documents इथे सुरक्षित लपवा.'],[44.9,47.8,'Android आठ आणि त्यापुढच्या सगळ्या phones वर चालतं.'],[47.8,50.3,'फक्त legal content साठीच वापरा.'],[50.3,52.8,'Link description मध्ये आहे...'],[52.8,55.5,'comment मध्ये सांगा, कोणती feature आवडली?']];
+
+const SC=[0,5.3,8.7,12.6,21.2,30.1,38.25,44.9,50.3];
+const COLORS=[['#3b82f6','#a855f7'],['#ef4444','#f59e0b'],['#ffd400','#ff7a00'],['#00d2ff','#3a7bd5'],['#22c55e','#06b6d4'],['#ec4899','#8b5cf6'],['#ffd400','#ef4444'],['#22c55e','#3b82f6'],['#ff7a00','#ec4899']];
+
+function scene(t){let i=0;for(let k=0;k<SC.length;k++)if(t>=SC[k])i=k;return i}
+
+function tile(x,y,s,c,icon,label,o=1){return `<div class="tile" style="left:${x}px;top:${y}px;background:${c};transform:scale(${s});opacity:${o}">${icon}<div style="margin-top:10px">${label}</div></div>`}
+
+function render(t){
+ const i=scene(t), t0=SC[i], lt=t-t0, [c1,c2]=COLORS[i];
+ document.getElementById('bg').innerHTML=
+  `<div class="blob" style="width:900px;height:900px;left:${-300+120*Math.sin(t*.4)}px;top:${-200+80*Math.cos(t*.3)}px;background:${c1}"></div>
+   <div class="blob" style="width:800px;height:800px;left:${500+100*Math.cos(t*.35)}px;top:${1200+90*Math.sin(t*.45)}px;background:${c2}"></div>`;
+ document.getElementById('prog').style.width=(t/DUR*1080)+'px';
+ let H='',S='',G='';
+ const hs=pop(t,t0,.4);
+ if(i===0){
+  H='३ वेगवेगळे Apps?';
+  G=tile(80,40,pop(t,0.2),'#3b82f6',ICON.dl,'Download')+tile(700,40,pop(t,2.7),'#ef4444',ICON.play,'Video')+tile(390,420,pop(t,3.9),'#f59e0b',ICON.file,'Files');
+ } else if(i===1){
+  const m=ease((t-6.05)/.6);
+  if(t<6.05){H='<span style="color:#ff4d4d;font-size:170px">थांबा!</span>';
+   G=tile(80,40,1,'#3b82f6',ICON.dl,'Download')+tile(700,40,1,'#ef4444',ICON.play,'Video')+tile(390,420,1,'#f59e0b',ICON.file,'Files');}
+  else {H='एकाच App मध्ये!';
+   const cx=390,cy=230;
+   G=tile(80+(cx-80)*m,40+(cy-40)*m,1-m*.6,'#3b82f6',ICON.dl,'Download',1-m)+tile(700+(cx-700)*m,40+(cy-40)*m,1-m*.6,'#ef4444',ICON.play,'Video',1-m)+tile(390,420+(cy-420)*m,1-m*.6,'#f59e0b',ICON.file,'Files',1-m)
+    +`<div style="position:absolute;left:290px;top:130px;width:500px;height:500px;border-radius:110px;background:linear-gradient(135deg,#ffd400,#ff7a00);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:150px;color:#111;transform:scale(${pop(t,6.4,.45)});box-shadow:0 30px 90px rgba(255,180,0,.45)">8XDL</div>`;}
+ } else if(i===2){
+  H='8XDL';S='All-in-One Android App';
+  const ic=[[ICON.dl,'#3b82f6'],[ICON.globe,'#22c55e'],[ICON.play,'#ef4444'],[ICON.file,'#f59e0b']];
+  G=`<div style="position:absolute;left:290px;top:40px;width:500px;height:500px;border-radius:110px;background:linear-gradient(135deg,#ffd400,#ff7a00);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:150px;color:#111;transform:scale(${1+.04*Math.sin(t*4)})">8XDL</div>`
+   +ic.map((a,k)=>`<div style="position:absolute;left:${130+k*220}px;top:610px;width:160px;height:160px;border-radius:40px;background:${a[1]};display:flex;align-items:center;justify-content:center;transform:scale(${pop(t,t0+.5+k*.35)*.7})">${a[0]}</div>`).join('');
+ } else if(i===3){
+  H='१. Fast Download';S='Multi-thread ⚡ जास्त speed';
+  const paused=t>=19.2&&t<20.2;
+  const rows=[['ubuntu-24.04.iso','4.7 GB',.9],['lecture-video.mp4','820 MB',1.4],['project-docs.zip','230 MB',2.1]];
+  const et=k=>k===0?(t<19.2?t:t<20.2?19.2:t-1):t;
+  let html=rows.map((r,k)=>{const p=Math.min(1,Math.max(0,(et(k)-t0-.3)*.06*r[2]+.08*k));
+    const segs=Array.from({length:8},(_,j)=>`<div class="seg" style="flex:1;opacity:${Math.min(1,p*8-j)>0?1:.15}"></div>`).join('');
+    return `<div class="row" style="opacity:${fade(t,t0+.2+k*.25)}"><div style="font-size:30px;font-weight:700">${r[0]}</div><div style="font-size:26px;color:#9fb3d9">${r[1]} · ${paused&&k===0?'<b style="color:#ffd400">Paused</b>':Math.round(p*100)+'%'}</div><div class="bar">${segs}</div></div>`}).join('');
+  const sp=(paused?0:9+3*Math.sin(t*3)+ (t-t0)*.6).toFixed(1);
+  html+=`<div style="text-align:center;margin-top:30px;font-size:86px;font-weight:800;color:#00d2ff">${sp} <span style="font-size:44px">MB/s</span></div>`;
+  G=`<div class="phone" style="transform:translateY(${(1-ease(lt/.5))*200}px)"><div class="scr">${html}</div></div>`;
+  if(t>=18)G+=`<div style="position:absolute;top:880px;left:0;right:0;text-align:center"></div>`;
+  if(t>=18){S=['Pause','Resume','Recover'].map((w,k)=>`<span class="chip" style="transform:scale(${pop(t,18+k*.9)});font-size:38px;padding:8px 24px">${w}</span>`).join('');}
+ } else if(i===4){
+  H='२. Privacy Browser';
+  const blocked=t>=23.2;
+  const ad=(y)=>`<div style="height:120px;margin:14px 0;border-radius:16px;background:${blocked?'transparent':'#ef4444'};border:${blocked?'4px dashed #3b4a72':'none'};display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:800;opacity:${blocked?1-ease((t-23.2)/.4)*.7:1}">${blocked?'':'AD AD AD'}</div>`;
+  const line=(w)=>`<div style="height:20px;width:${w}%;background:#2a3554;border-radius:10px;margin:14px 0"></div>`;
+  let html=`<div style="background:#18223b;border-radius:999px;padding:14px 24px;font-size:28px;color:#9fb3d9;display:flex;gap:12px;align-items:center"><span style="color:#22c55e">●</span> news-site.in</div>`+ad()+line(90)+line(70)+line(85)+ad()+line(60)+line(80);
+  if(blocked)html+=`<div style="position:absolute;left:50%;top:300px;transform:translateX(-50%) scale(${pop(t,23.2)});background:#0b1222ee;border:3px solid #22c55e;border-radius:30px;padding:24px 36px;text-align:center;font-weight:800;font-size:40px;white-space:nowrap">${ICON.shield}<br>Ads Blocked: ${Math.min(14,Math.floor((t-23.2)*8))}</div>`;
+  G=`<div class="phone" style="transform:translateY(${(1-ease(lt/.5))*200}px)"><div class="scr">${html}</div></div>`;
+  S=t<25.5?'Built-in Ad Blocker':['Incognito','Private DNS'].map((w,k)=>`<span class="chip" style="transform:scale(${pop(t,25.6+k*.8)});font-size:38px;padding:8px 24px">${w}</span>`).join('');
+ } else if(i===5){
+  H='३. Player + Files';
+  let html;
+  if(t<35.5){
+   const pip=t>=34;
+   html=`<div style="height:${pip?260:330}px;border-radius:24px;background:linear-gradient(135deg,#1e3a8a,#7c3aed);display:flex;align-items:center;justify-content:center;transform-origin:top right;transform:scale(${pip?.55:1}) translate(${pip?180:0}px,0)">${ICON.play}</div>
+    <div style="text-align:center;margin-top:${pip?-80:18}px;font-size:30px;background:#000a;display:inline-block;padding:6px 14px;border-radius:8px;${pip?'opacity:0':''}">[ Subtitles ]</div>
+    <div style="margin-top:30px;display:flex;gap:16px;flex-wrap:wrap">${['1.5x','PiP','Sleep 30m'].map((w,k)=>`<div style="background:#18223b;border-radius:16px;padding:12px 20px;font-size:32px;font-weight:700;opacity:${fade(t,33+k*.8)}">${w}</div>`).join('')}</div>`;
+  } else {
+   html=['Videos','Music','Documents','Downloads'].map((w,k)=>`<div class="row" style="display:flex;align-items:center;gap:20px;opacity:${fade(t,35.5+k*.2)}"><div style="width:70px;height:70px;border-radius:18px;background:${['#ef4444','#a855f7','#3b82f6','#22c55e'][k]};display:flex;align-items:center;justify-content:center">${ICON.file.replace(/120/g,'44')}</div><div style="font-size:34px;font-weight:700">${w}</div></div>`).join('');
+  }
+  G=`<div class="phone" style="transform:translateY(${(1-ease(lt/.5))*200}px)"><div class="scr">${html}</div></div>`;
+  S=t<33?'Media Player · File Manager':t<35.5?'Subtitles · PiP · Sleep timer':'सगळ्या files एकाच ठिकाणी';
+ } else if(i===6){
+  H='सगळ्यात भारी!';S='Secure Private Vault';
+  const closed=t>=41.5;
+  const thumbs=[0,1,2].map(k=>{const m=ease((t-40.6-k*.3)/.6);return `<div style="position:absolute;left:${120+k*300+(540-120-k*300-80)*m}px;top:${80+(420-80)*m}px;width:160px;height:160px;border-radius:24px;background:${['#f472b6','#60a5fa','#facc15'][k]};opacity:${1-m};transform:scale(${1-m*.6})"></div>`}).join('');
+  G=thumbs+`<div style="position:absolute;left:390px;top:330px;transform:scale(${pop(t,t0+.2,.5)*(closed?1+.05*Math.sin((t-41.5)*10)*Math.exp(-(t-41.5)*3):1)})">${ICON.lock(!closed)}</div>`;
+  if(t>=40.5)G+=`<div style="position:absolute;top:720px;left:0;right:0;text-align:center"><span class="chip" style="transform:scale(${pop(t,40.6)})">Photos</span><span class="chip" style="transform:scale(${pop(t,41.1)})">Documents</span></div>`;
+ } else if(i===7){
+  H='Android 8+';S='सगळ्या phones वर चालतं';
+  G=`<div style="position:absolute;left:190px;top:120px;width:700px;border-radius:40px;background:#18223b;border:4px solid #22c55e;padding:50px;text-align:center;transform:scale(${pop(t,t0+.2)})"><div style="font-size:120px;font-weight:800;color:#22c55e">8.0+</div><div style="font-size:46px;font-weight:700">Android Compatible</div></div>`;
+  if(t>=47.8)G+=`<div style="position:absolute;left:140px;top:560px;width:800px;border-radius:30px;background:#ffd400;color:#111;padding:30px;text-align:center;font-size:52px;font-weight:800;transform:scale(${pop(t,47.8)})">फक्त legal content साठी</div>`;
+ } else {
+  H='आत्ताच Try करा!';S='Link Description मध्ये 👇'.replace('👇','↓');
+  G=`<div style="position:absolute;left:290px;top:20px;width:500px;height:300px;border-radius:70px;background:linear-gradient(135deg,#ffd400,#ff7a00);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:130px;color:#111;transform:scale(${pop(t,t0+.1)})">8XDL</div>
+   <div style="position:absolute;left:240px;top:380px;width:600px;border-radius:999px;background:#22c55e;padding:26px;text-align:center;font-size:50px;font-weight:800;transform:scale(${pop(t,t0+.5)*(1+.04*Math.sin(t*6))})">Play Store वर Download</div>`;
+  if(t>=52.8)G+=`<div style="position:absolute;left:140px;top:560px;width:800px;border-radius:40px 40px 40px 8px;background:#fff;color:#111;padding:30px 36px;font-size:48px;font-weight:800;transform:scale(${pop(t,52.8)})">तुमची आवडती feature कोणती? Comment करा!</div>`;
+ }
+ document.getElementById('head').innerHTML=`<div style="transform:scale(${hs})">${H}</div>`;
+ document.getElementById('sub').innerHTML=`<div style="opacity:${fade(t,t0+.25)}">${S}</div>`;
+ document.getElementById('stage').innerHTML=G;
+ const c=CAPS.find(c=>t>=c[0]&&t<c[1]);
+ document.getElementById('cap').innerHTML=c?`<span>${c[2]}</span>`:'';
+}
+render(0);
+</script>
+</body></html>
