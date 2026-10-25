@@ -1,55 +1,343 @@
 {
-  "format": "short",
-  "theme": "sunset",
-  "fonts": {"head": "Baloo2", "body": "Mukta-ExtraBold"},
-  "brand": "8XDL · मराठी",
-  "voiceover": "voiceover.mp3",
-  "music": {"src": "music-voxel-revolution.mp3", "volume": 0.14, "duck": 0.3},
-  "captions": [
-    {"start": 0.0, "end": 2.4, "text": "तुमच्या phone मध्ये download साठी एक app..."},
-    {"start": 2.5, "end": 5.2, "text": "video साठी दुसरं... files साठी तिसरं?"},
-    {"start": 5.3, "end": 6.05, "text": "थांबा!"},
-    {"start": 6.05, "end": 8.7, "text": "हे सगळं... आता एकाच app मध्ये!"},
-    {"start": 8.7, "end": 12.6, "text": "हे आहे 8XDL... एक all-in-one Android app."},
-    {"start": 12.6, "end": 14.9, "text": "पहिलं... fast download manager."},
-    {"start": 14.9, "end": 18.0, "text": "Multi-thread download मुळे speed जास्त,"},
-    {"start": 18.0, "end": 21.2, "text": "आणि net गेलं तरी pause, resume आणि recover."},
-    {"start": 21.2, "end": 25.5, "text": "दुसरं... privacy browser. Built-in ad blocker,"},
-    {"start": 25.5, "end": 27.8, "text": "incognito mode, आणि Private DNS..."},
-    {"start": 27.8, "end": 30.1, "text": "म्हणजे ads बंद, आणि data सुरक्षित."},
-    {"start": 30.1, "end": 33.0, "text": "तिसरं... media player आणि file manager."},
-    {"start": 33.0, "end": 35.5, "text": "Subtitles, Picture-in-Picture, sleep timer..."},
-    {"start": 35.5, "end": 38.25, "text": "आणि files manage करा, एकाच ठिकाणी."},
-    {"start": 38.25, "end": 40.5, "text": "आणि सगळ्यात भारी... Secure Private Vault!"},
-    {"start": 40.5, "end": 44.9, "text": "तुमचे private photos आणि documents इथे लपवा."},
-    {"start": 44.9, "end": 47.8, "text": "Android आठ आणि पुढच्या सगळ्या phones वर चालतं."},
-    {"start": 47.8, "end": 50.3, "text": "फक्त legal content साठीच वापरा."},
-    {"start": 50.3, "end": 52.8, "text": "Link description मध्ये आहे..."},
-    {"start": 52.8, "end": 55.5, "text": "comment मध्ये सांगा, कोणती feature आवडली?"}
-  ],
-  "scenes": [
-    {"start": 0, "type": "hook", "title": "*३* वेगवेगळे Apps?", "model": "image",
-     "images": ["emoji-mobile-phone.png", "emoji-inbox-tray.png", "emoji-clapper-board.png", "emoji-file-folder.png"],
-     "items": [{"text": "Download", "at": 1.0}, {"text": "Video", "at": 3.0}, {"text": "Files", "at": 4.4}]},
-    {"start": 5.3, "type": "hook", "title": "*थांबा!* सगळं एकाच App मध्ये", "model": "card", "label": "8XDL",
-     "images": ["emoji-sparkles.png", "emoji-fire.png"], "theme": "fire"},
-    {"start": 8.7, "type": "feature", "title": "*8XDL*", "subtitle": "All-in-One Android App", "model": "phone",
-     "screen": {"title": "8XDL", "lines": ["Download", "Browser", "Player", "Vault"]},
-     "items": [{"text": "Download", "at": 9.6}, {"text": "Browser", "at": 10.1}, {"text": "Player", "at": 10.6}, {"text": "Vault", "at": 11.1}]},
-    {"start": 12.6, "type": "explain3d", "badge": "१", "title": "Fast *Download*", "model": "download", "theme": "ocean",
-     "items": [{"text": "Multi-thread", "at": 15.2}, {"text": "Pause", "at": 18.6}, {"text": "Resume", "at": 19.3}, {"text": "Recover", "at": 20.1}]},
-    {"start": 21.2, "type": "explain3d", "badge": "२", "title": "Privacy *Browser*", "model": "shield", "theme": "mint",
-     "images": ["emoji-globe-with-meridians.png"],
-     "items": [{"text": "Ad Blocker", "at": 23.2}, {"text": "Incognito", "at": 25.6}, {"text": "Private DNS", "at": 26.6}, {"text": "Ads बंद", "at": 28.0}]},
-    {"start": 30.1, "type": "feature", "badge": "३", "title": "Player + *Files*", "model": "folder", "theme": "saffron",
-     "images": ["emoji-clapper-board.png", "emoji-musical-notes.png"],
-     "items": [{"text": "Subtitles", "at": 33.0}, {"text": "PiP", "at": 33.9}, {"text": "Sleep timer", "at": 34.8}, {"text": "File manager", "at": 35.8}]},
-    {"start": 38.25, "type": "explain3d", "title": "Secret *Vault*", "subtitle": "सगळ्यात भारी!", "model": "lock", "theme": "royal",
-     "items": [{"text": "Photos", "at": 41.0}, {"text": "Documents", "at": 41.8}, {"text": "Gallery मधून गायब", "at": 43.0}]},
-    {"start": 44.9, "type": "stat", "title": "सगळ्या *Android* phones वर", "value": 8, "from": 0, "unit": "+", "model": "phone",
-     "screen": {"title": "Android", "lines": ["8.0+", "Compatible"]}, "theme": "mint",
-     "items": [{"text": "फक्त legal content साठी", "at": 47.8}]},
-    {"start": 50.3, "type": "cta", "title": "आत्ताच *Try* करा!", "model": "card", "label": "8XDL",
-     "items": [{"text": "Play Store वर Download", "at": 50.5}, {"text": "तुमची आवडती feature कोणती? Comment करा!", "at": 52.8}]}
-  ]
+ "format": "short",
+ "theme": "sunset",
+ "fonts": {
+  "head": "Baloo2",
+  "body": "Mukta-ExtraBold"
+ },
+ "brand": "8XDL · मराठी",
+ "voiceover": "voiceover.mp3",
+ "music": {
+  "src": "music-voxel-revolution.mp3",
+  "volume": 0.14,
+  "duck": 0.3
+ },
+ "captions": [
+  {
+   "start": 0.0,
+   "end": 2.4,
+   "text": "तुमच्या phone मध्ये download साठी एक app..."
+  },
+  {
+   "start": 2.5,
+   "end": 5.2,
+   "text": "video साठी दुसरं... files साठी तिसरं?"
+  },
+  {
+   "start": 5.3,
+   "end": 6.05,
+   "text": "थांबा!"
+  },
+  {
+   "start": 6.05,
+   "end": 8.7,
+   "text": "हे सगळं... आता एकाच app मध्ये!"
+  },
+  {
+   "start": 8.7,
+   "end": 12.6,
+   "text": "हे आहे 8XDL... एक all-in-one Android app."
+  },
+  {
+   "start": 12.6,
+   "end": 14.9,
+   "text": "पहिलं... fast download manager."
+  },
+  {
+   "start": 14.9,
+   "end": 18.0,
+   "text": "Multi-thread download मुळे speed जास्त,"
+  },
+  {
+   "start": 18.0,
+   "end": 21.2,
+   "text": "आणि net गेलं तरी pause, resume आणि recover."
+  },
+  {
+   "start": 21.2,
+   "end": 25.5,
+   "text": "दुसरं... privacy browser. Built-in ad blocker,"
+  },
+  {
+   "start": 25.5,
+   "end": 27.8,
+   "text": "incognito mode, आणि Private DNS..."
+  },
+  {
+   "start": 27.8,
+   "end": 30.1,
+   "text": "म्हणजे ads बंद, आणि data सुरक्षित."
+  },
+  {
+   "start": 30.1,
+   "end": 33.0,
+   "text": "तिसरं... media player आणि file manager."
+  },
+  {
+   "start": 33.0,
+   "end": 35.5,
+   "text": "Subtitles, Picture-in-Picture, sleep timer..."
+  },
+  {
+   "start": 35.5,
+   "end": 38.25,
+   "text": "आणि files manage करा, एकाच ठिकाणी."
+  },
+  {
+   "start": 38.25,
+   "end": 40.5,
+   "text": "आणि सगळ्यात भारी... Secure Private Vault!"
+  },
+  {
+   "start": 40.5,
+   "end": 44.9,
+   "text": "तुमचे private photos आणि documents इथे लपवा."
+  },
+  {
+   "start": 44.9,
+   "end": 47.8,
+   "text": "Android आठ आणि पुढच्या सगळ्या phones वर चालतं."
+  },
+  {
+   "start": 47.8,
+   "end": 50.3,
+   "text": "फक्त legal content साठीच वापरा."
+  },
+  {
+   "start": 50.3,
+   "end": 52.8,
+   "text": "Link description मध्ये आहे..."
+  },
+  {
+   "start": 52.8,
+   "end": 55.5,
+   "text": "comment मध्ये सांगा, कोणती feature आवडली?"
+  }
+ ],
+ "scenes": [
+  {
+   "start": 0,
+   "type": "hook",
+   "title": "*३* वेगवेगळे Apps?",
+   "model": "image",
+   "images": [
+    "emoji-mobile-phone.png",
+    "emoji-inbox-tray.png",
+    "emoji-clapper-board.png",
+    "emoji-file-folder.png"
+   ],
+   "items": [
+    {
+     "text": "Download",
+     "at": 1.0
+    },
+    {
+     "text": "Video",
+     "at": 3.0
+    },
+    {
+     "text": "Files",
+     "at": 4.4
+    }
+   ]
+  },
+  {
+   "start": 5.3,
+   "type": "hook",
+   "title": "*थांबा!* सगळं एकाच App मध्ये",
+   "model": "card",
+   "label": "8XDL",
+   "images": [
+    "emoji-sparkles.png",
+    "emoji-fire.png"
+   ],
+   "theme": "fire"
+  },
+  {
+   "start": 8.7,
+   "type": "feature",
+   "title": "*8XDL*",
+   "subtitle": "All-in-One Android App",
+   "model": "phone",
+   "screen": {
+    "title": "8XDL",
+    "lines": [
+     "Download",
+     "Browser",
+     "Player",
+     "Vault"
+    ]
+   },
+   "items": [
+    {
+     "text": "Download",
+     "at": 9.6
+    },
+    {
+     "text": "Browser",
+     "at": 10.1
+    },
+    {
+     "text": "Player",
+     "at": 10.6
+    },
+    {
+     "text": "Vault",
+     "at": 11.1
+    }
+   ],
+   "background": "studio"
+  },
+  {
+   "start": 12.6,
+   "type": "explain3d",
+   "badge": "१",
+   "title": "Fast *Download*",
+   "model": "download",
+   "theme": "ocean",
+   "items": [
+    {
+     "text": "Multi-thread",
+     "at": 15.2
+    },
+    {
+     "text": "Pause",
+     "at": 18.6
+    },
+    {
+     "text": "Resume",
+     "at": 19.3
+    },
+    {
+     "text": "Recover",
+     "at": 20.1
+    }
+   ],
+   "background": "cyber"
+  },
+  {
+   "start": 21.2,
+   "type": "explain3d",
+   "badge": "२",
+   "title": "Privacy *Browser*",
+   "model": "shield",
+   "theme": "mint",
+   "images": [
+    "emoji-globe-with-meridians.png"
+   ],
+   "items": [
+    {
+     "text": "Ad Blocker",
+     "at": 23.2
+    },
+    {
+     "text": "Incognito",
+     "at": 25.6
+    },
+    {
+     "text": "Private DNS",
+     "at": 26.6
+    },
+    {
+     "text": "Ads बंद",
+     "at": 28.0
+    }
+   ]
+  },
+  {
+   "start": 30.1,
+   "type": "feature",
+   "badge": "३",
+   "title": "Player + *Files*",
+   "model": "folder",
+   "theme": "saffron",
+   "images": [
+    "emoji-clapper-board.png",
+    "emoji-musical-notes.png"
+   ],
+   "items": [
+    {
+     "text": "Subtitles",
+     "at": 33.0
+    },
+    {
+     "text": "PiP",
+     "at": 33.9
+    },
+    {
+     "text": "Sleep timer",
+     "at": 34.8
+    },
+    {
+     "text": "File manager",
+     "at": 35.8
+    }
+   ]
+  },
+  {
+   "start": 38.25,
+   "type": "explain3d",
+   "title": "Secret *Vault*",
+   "subtitle": "सगळ्यात भारी!",
+   "model": "lock",
+   "theme": "royal",
+   "items": [
+    {
+     "text": "Photos",
+     "at": 41.0
+    },
+    {
+     "text": "Documents",
+     "at": 41.8
+    },
+    {
+     "text": "Gallery मधून गायब",
+     "at": 43.0
+    }
+   ],
+   "background": "studio"
+  },
+  {
+   "start": 44.9,
+   "type": "stat",
+   "title": "सगळ्या *Android* phones वर",
+   "value": 8,
+   "from": 0,
+   "unit": "+",
+   "model": "phone",
+   "screen": {
+    "title": "Android",
+    "lines": [
+     "8.0+",
+     "Compatible"
+    ]
+   },
+   "theme": "mint",
+   "items": [
+    {
+     "text": "फक्त legal content साठी",
+     "at": 47.8
+    }
+   ],
+   "background": "cyber"
+  },
+  {
+   "start": 50.3,
+   "type": "cta",
+   "title": "आत्ताच *Try* करा!",
+   "model": "card",
+   "label": "8XDL",
+   "items": [
+    {
+     "text": "Play Store वर Download",
+     "at": 50.5
+    },
+    {
+     "text": "तुमची आवडती feature कोणती? Comment करा!",
+     "at": 52.8
+    }
+   ]
+  }
+ ],
+ "background": "aurora"
 }

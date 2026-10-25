@@ -1,6 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import {KineticTitle, Pill} from '../components/Layers';
+import {StageHalo} from '../components/Backgrounds';
 import {Stage3D} from '../three/Stage3D';
 import type {Theme} from '../theme';
 import type {Scene} from '../types';
@@ -63,6 +64,8 @@ const Stage: React.FC<{ctx: SceneCtx; top?: number; height?: number; scale?: num
   const s = ctx.scene;
   const model = s.model ?? (s.images?.length ? 'image' : 'phone');
   return (
+    <>
+    <StageHalo theme={ctx.theme} top={top ?? L.stageTop} height={height ?? L.stageH} />
     <div style={{position: 'absolute', top: top ?? L.stageTop, left: 0, width: L.w, height: height ?? L.stageH}}>
       <Stage3D
         model={model}
@@ -78,6 +81,7 @@ const Stage: React.FC<{ctx: SceneCtx; top?: number; height?: number; scale?: num
         progress={progress ?? 1}
       />
     </div>
+    </>
   );
 };
 

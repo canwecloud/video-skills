@@ -36,7 +36,7 @@ export const Stage3D: React.FC<Props> = ({model, color, theme, width, height, im
   const orbiters = isSticker ? images.slice(1) : images;
 
   return (
-    <ThreeCanvas width={Math.round(width)} height={Math.round(height)} camera={{position: [0, 0, 8], fov: 35}} gl={{antialias: true, preserveDrawingBuffer: true}}>
+    <ThreeCanvas width={Math.round(width)} height={Math.round(height)} camera={{position: [0, 0, 8], fov: 35}} gl={{antialias: false, preserveDrawingBuffer: true, powerPreference: 'high-performance'}}>
       <ambientLight intensity={0.55} />
       <directionalLight position={[4, 6, 6]} intensity={2.2} />
       <directionalLight position={[-5, -2, 3]} intensity={0.6} color={theme.b} />

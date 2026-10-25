@@ -15,6 +15,7 @@ export type Scene = {
   value?: number; from?: number; unit?: string; // stat
   left?: {title: string; items: string[]}; right?: {title: string; items: string[]}; // compare
   theme?: string; // per-scene theme override
+  background?: 'aurora' | 'studio' | 'cyber'; // per-scene background style
 };
 
 export type Caption = {start: number; end: number; text: string};
@@ -24,6 +25,7 @@ export type Spec = {
   fps?: number;
   duration?: number; // seconds; defaults to voiceover length
   theme?: string;
+  background?: 'aurora' | 'studio' | 'cyber'; // default aurora
   fonts?: {head?: string; body?: string; latin?: string};
   brand?: string;
   voiceover?: string;

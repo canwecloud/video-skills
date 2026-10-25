@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {AbsoluteFill, Audio, Sequence, continueRender, delayRender, staticFile, useVideoConfig} from 'remotion';
-import {Background, Captions, ProgressBar, Transition} from './components/Layers';
+import {Captions, ProgressBar, Transition} from './components/Layers';
+import {Background} from './components/Backgrounds';
 import {loadFonts, stack} from './fonts';
 import {SCENES, useLayout} from './scenes/Scenes';
 import {theme as getTheme} from './theme';
@@ -41,7 +42,7 @@ export const Video: React.FC<{spec: Spec}> = ({spec}) => {
 
   return (
     <AbsoluteFill style={{background: base.bg}}>
-      <Background theme={base} />
+      <Background theme={base} style={spec.background} />
       {ready &&
         scenes.map((s, i) => {
           const from = Math.round(s.start * fps);
@@ -50,7 +51,7 @@ export const Video: React.FC<{spec: Spec}> = ({spec}) => {
           const th = s.theme ? getTheme(s.theme) : base;
           return (
             <Sequence key={i} from={from} durationInFrames={Math.max(1, to - from)} name={`${i + 1}. ${s.type}`}>
-              {s.theme && <Background theme={th} />}
+              {(s.theme || s.background) && <Background theme={th} style={s.background ?? spec.background} />}
               <Transition durationInFrames={to - from}>
                 <Comp ctx={{scene: s, theme: th, head, body, fontName: headName, durationInFrames: to - from, asset, brand: spec.brand}} />
               </Transition>

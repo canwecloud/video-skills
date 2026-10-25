@@ -1,6 +1,19 @@
 # Design system
 
-## Themes (animated mesh gradients)
+## Background styles (`background` on the spec or per scene)
+
+| Style | Look | Best for |
+|---|---|---|
+| `aurora` (default) | flowing color ribbons, light rays from the top, drifting bokeh, vignette, film grain | hooks, features, general explainers |
+| `studio` | dark backdrop, top spotlight cone, colored rim lights, reflective floor | product hero shots, phone UI, vault/premium reveals |
+| `cyber` | neon horizon glow, scrolling perspective grid (floor and ceiling), scanlines | speed, downloads, gaming, AI, specs and stats |
+
+Every 3D model automatically sits in a **stage halo**: an accent spotlight disc, a rotating
+ring and a floor shadow. That makes it pop on any background. Mix styles: open on `aurora`,
+put the product on `studio`, put speed and number beats on `cyber`. The style change works
+as a pattern interrupt, which helps viewers stay.
+
+## Themes (color palettes)
 
 | Theme | Feel | Use for |
 |---|---|---|

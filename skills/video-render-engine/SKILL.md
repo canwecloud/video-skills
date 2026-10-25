@@ -92,8 +92,9 @@ node render.mjs /path/spec.json --assets /path/job --out /path/final.mp4
 ```
 
 Look at the stills before the full render. Check that the Devanagari is shaped correctly, that
-nothing overlaps the captions, and that each model reads at phone size. The full render is
-slow: about 1–2 s per frame with software WebGL, so a 60 s Short takes 30–60 min. Run it in the
+nothing overlaps the captions, and that each model reads at phone size. The full render takes
+about 1.7 s per frame on 4 CPUs with software WebGL, so a 60 s Short takes about 50 min (much faster with a GPU).
+Use `--frames 0-89` to test a short range. Run it in the
 background. The final pass normalizes audio to −14 LUFS.
 
 `npx remotion studio src/index.ts` opens the live editor if the user wants to tweak by hand.

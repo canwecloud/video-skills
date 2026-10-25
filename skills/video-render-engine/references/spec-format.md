@@ -9,7 +9,8 @@ All times are **seconds on the voiceover timeline**. Asset paths are relative to
 | `format` | `"short"` \| `"long"` | short | short = 1080×1920 (Shorts/Reels), long = 1920×1080 |
 | `fps` | number | 30 | |
 | `duration` | number | voiceover length + 0.4 s | |
-| `theme` | string | ocean | see design-system.md |
+| `theme` | string | ocean | color palette, see design-system.md |
+| `background` | `aurora` \| `studio` \| `cyber` | aurora | background style; scenes can override |
 | `fonts.head` / `fonts.body` | font file stem | Baloo2 / Mukta-ExtraBold | any file in vendor/fonts |
 | `fonts.latin` | font file stem | Poppins-ExtraBold | fallback for English words |
 | `brand` | string | — | top pill and default `card` label |
@@ -36,7 +37,8 @@ All times are **seconds on the voiceover timeline**. Asset paths are relative to
 | `items` | hook / explain3d / feature / steps / stat / cta | `[{text, at}]`; `at` = the second the word is spoken |
 | `value`, `from`, `unit` | stat | counts from `from` to `value` |
 | `left`, `right` | compare | `{title, items[]}`; left = bad (✕), right = good (✓) |
-| `theme` | all | per-scene background and accent change |
+| `theme` | all | per-scene palette change |
+| `background` | all | per-scene background style |
 
 ## Scene-type cheat sheet
 

@@ -18,6 +18,7 @@ const spec = JSON.parse(fs.readFileSync(specPath, 'utf8'));
 const assets = path.resolve(opt('--assets', path.dirname(specPath)));
 const out = path.resolve(opt('--out', 'out.mp4'));
 const stills = opt('--stills');
+const frames = opt('--frames'); // e.g. 0-59 (benchmark / partial render)
 
 // public/: fonts (vendor), synthesized SFX, and this job's assets
 const pub = path.join(HERE, 'public');
@@ -27,6 +28,7 @@ fs.cpSync(assets, path.join(pub, 'job'), {recursive: true, dereference: true});
 fs.cpSync(path.join(HERE, '..', 'vendor', 'fonts'), path.join(pub, 'fonts'), {recursive: true});
 const sfx = {
   'whoosh.wav': ['-f', 'lavfi', '-i', 'anoisesrc=d=0.45:c=pink:a=0.7', '-af', 'highpass=f=500,lowpass=f=7000,afade=t=in:d=0.12,afade=t=out:st=0.15:d=0.3'],
+  'grain.png': ['-f', 'lavfi', '-i', 'nullsrc=s=256x256,geq=random(1)*255:128:128', '-vf', 'format=gray', '-frames:v', '1'],
   'pop.wav': ['-f', 'lavfi', '-i', 'sine=f=1200:d=0.09', '-af', 'afade=t=out:st=0.01:d=0.08,volume=0.6'],
 };
 for (const [name, args] of Object.entries(sfx)) {
@@ -59,7 +61,9 @@ const raw = out.replace(/\.mp4$/, '') + '.raw.mp4';
 let last = -1;
 await renderMedia({
   composition, serveUrl, inputProps, codec: 'h264', crf: 18, outputLocation: raw, browserExecutable, chromiumOptions,
-  concurrency: Math.max(1, Math.min(8, os.cpus().length - 1)),
+  concurrency: Number(opt('--concurrency', Math.max(1, Math.min(8, os.cpus().length - 1)))),
+  frameRange: frames ? frames.split('-').map(Number) : null,
+  timeoutInMilliseconds: 180000,
   onProgress: ({progress}) => {
     const p = Math.floor(progress * 20);
     if (p !== last) (last = p), console.log(`render ${Math.round(progress * 100)}%`);
